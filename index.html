@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Athulya Physio</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;font-family:'Nunito Sans',sans-serif;background:#0f172a;color:#fff}
+.page{position:fixed;inset:0;display:flex;flex-direction:column;transition:opacity .25s}
+.page.off{opacity:0;pointer-events:none}
+
+/* HOME */
+#pgHome{align-items:center;justify-content:center;gap:28px;
+  background:linear-gradient(160deg,#0f766e 0%,#0d9488 50%,#0369a1 100%)}
+.home-logo{text-align:center}
+.home-logo h1{font-family:'Nunito',sans-serif;font-size:30px;font-weight:900;color:#fff;letter-spacing:-.5px}
+.home-logo p{font-size:13px;color:rgba(255,255,255,.55);margin-top:5px}
+.logo-mark{width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,.12);
+  border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;
+  justify-content:center;margin:0 auto 14px}
+.logo-cross{position:relative;width:26px;height:26px}
+.logo-cross::before,.logo-cross::after{content:'';position:absolute;background:#fff;border-radius:2px}
+.logo-cross::before{width:5px;height:26px;left:10px;top:0}
+.logo-cross::after{width:26px;height:5px;left:0;top:10px}
+.home-btns{display:flex;flex-direction:column;gap:11px;width:100%;max-width:300px}
+.home-btn{padding:17px 22px;border:none;border-radius:14px;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;transition:all .15s}
+.home-btn.primary{background:#fff;color:#0f766e}
+.home-btn.primary:active{transform:scale(.97)}
+.home-btn.secondary{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.2)}
+.home-btn.secondary:active{transform:scale(.97)}
+
+/* PATIENT SELECT */
+#pgSelect{background:#0f172a}
+.page-top{padding:18px 20px 14px;display:flex;align-items:center;gap:11px;
+  border-bottom:1px solid rgba(255,255,255,.07)}
+.back-btn{background:rgba(255,255,255,.08);border:none;color:#fff;border-radius:8px;
+  padding:7px 13px;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer}
+.page-title{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;color:#fff}
+.pat-grid{padding:18px;display:flex;flex-direction:column;gap:11px;overflow-y:auto;flex:1}
+.pat-btn{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.09);
+  border-radius:16px;padding:16px 18px;cursor:pointer;
+  display:flex;align-items:center;gap:15px;transition:all .15s}
+.pat-btn:active{transform:scale(.97);background:rgba(255,255,255,.1)}
+.pat-av{width:46px;height:46px;border-radius:50%;flex-shrink:0;display:flex;
+  align-items:center;justify-content:center;
+  font-family:'Nunito',sans-serif;font-weight:900;font-size:16px;color:#fff}
+.pat-info{flex:1}
+.pat-name{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;color:#fff}
+.pat-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+.pat-tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;
+  background:rgba(251,191,36,.12);color:#fbbf24;border:1px solid rgba(251,191,36,.25);
+  display:inline-block;margin-top:5px}
+.pat-notset{font-size:11px;color:rgba(255,255,255,.28);margin-top:4px}
+
+/* BRIEF */
+#pgBrief{background:#0f172a;overflow-y:auto}
+.brief-inner{padding:24px 20px;display:flex;flex-direction:column;
+  align-items:flex-start;max-width:420px;margin:0 auto;width:100%}
+.brief-prog{font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.32);
+  text-transform:uppercase;margin-bottom:18px}
+.brief-name{font-family:'Nunito',sans-serif;font-size:26px;font-weight:900;
+  color:#fff;margin-bottom:7px}
+.brief-badge{display:inline-block;background:rgba(251,191,36,.1);
+  border:1.5px solid rgba(251,191,36,.3);border-radius:7px;
+  padding:4px 11px;font-size:11px;font-weight:700;color:#fbbf24;margin-bottom:20px}
+.brief-illus{width:100%;height:150px;background:rgba(13,148,136,.1);
+  border:1.5px solid rgba(13,148,136,.2);border-radius:14px;
+  margin-bottom:20px;overflow:hidden}
+.brief-steps{width:100%;background:rgba(255,255,255,.04);border-radius:12px;
+  padding:14px 16px;margin-bottom:18px}
+.bstep{display:flex;gap:10px;margin-bottom:10px}
+.bstep:last-child{margin-bottom:0}
+.bstep-n{width:22px;height:22px;border-radius:50%;background:#0d9488;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:10px;color:#fff}
+.bstep-t{font-size:13px;line-height:1.55;color:rgba(255,255,255,.78);padding-top:2px}
+.brief-voice{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.vd{display:flex;gap:4px}
+.vdot{width:5px;height:5px;border-radius:50%;background:#0d9488;animation:vda 1.2s infinite}
+.vdot:nth-child(2){animation-delay:.2s}.vdot:nth-child(3){animation-delay:.4s}
+@keyframes vda{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.brief-voice-t{font-size:12px;color:rgba(255,255,255,.35)}
+.brief-skip{font-size:12px;color:rgba(255,255,255,.25);cursor:pointer;
+  text-decoration:underline;text-underline-offset:3px}
+
+/* CAMERA - fullscreen */
+#pgCam{background:#000}
+#vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+#oc{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+.cam-top{position:absolute;top:0;left:0;right:0;z-index:10;
+  padding:12px 16px 32px;
+  background:linear-gradient(to bottom,rgba(0,0,0,.75),transparent);
+  display:flex;align-items:flex-start;justify-content:space-between}
+.cam-info{display:flex;flex-direction:column;gap:4px}
+.cam-ex-name{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:#fff}
+.cam-badge{display:inline-block;background:rgba(251,191,36,.18);
+  border:1px solid rgba(251,191,36,.35);border-radius:6px;
+  padding:2px 9px;font-size:10px;font-weight:700;color:#fbbf24}
+.cam-stop{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.15);
+  color:#fff;border-radius:8px;padding:7px 13px;
+  font-family:'Nunito',sans-serif;font-weight:700;font-size:12px;cursor:pointer}
+.cam-bot{position:absolute;bottom:0;left:0;right:0;z-index:10;
+  padding:32px 14px 16px;
+  background:linear-gradient(to top,rgba(0,0,0,.88),transparent)}
+.rep-row{display:flex;gap:9px;margin-bottom:9px}
+.rchip{flex:1;background:rgba(255,255,255,.08);backdrop-filter:blur(8px);
+  border-radius:11px;padding:10px 7px;text-align:center;
+  border:1.5px solid rgba(255,255,255,.06)}
+.rchip .rn{font-family:'Nunito',sans-serif;font-size:30px;font-weight:900;line-height:1}
+.rchip .rl{font-size:9px;color:rgba(255,255,255,.38);letter-spacing:.06em;margin-top:2px}
+.rchip.ok .rn{color:#86efac}.rchip.bad .rn{color:#fca5a5}.rchip.tgt .rn{color:#93c5fd}
+.rchip.set .rn{color:#fde047}
+.pain-row{display:flex;gap:7px;align-items:center}
+.plbl{font-size:9px;color:rgba(255,255,255,.3);font-weight:700;letter-spacing:.06em;white-space:nowrap}
+.pb{flex:1;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);
+  color:rgba(255,255,255,.55);border-radius:7px;padding:7px 3px;font-size:10px;
+  font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;text-align:center}
+.pb.pn{background:rgba(34,197,94,.13);color:#86efac;border-color:rgba(34,197,94,.35)}
+.pb.pm{background:rgba(234,179,8,.1);color:#fde047;border-color:rgba(234,179,8,.35)}
+.pb.po{background:rgba(239,68,68,.13);color:#fca5a5;border-color:rgba(239,68,68,.35)}
+
+/* PHYSIO LOGIN */
+#pgPhyLogin{background:#f8fafc;color:#1c1917;align-items:center;justify-content:center;padding:28px}
+.phy-card{background:#fff;border-radius:20px;padding:28px 24px;width:100%;max-width:320px;
+  box-shadow:0 8px 36px rgba(0,0,0,.1)}
+.phy-card h2{font-family:'Nunito',sans-serif;font-size:19px;font-weight:900;
+  color:#0f766e;margin-bottom:5px}
+.phy-card p{font-size:12px;color:#78716c;margin-bottom:18px}
+.f-in{width:100%;padding:11px 13px;border:2px solid #e2e8f0;border-radius:9px;
+  font-family:'Nunito Sans',sans-serif;font-size:14px;outline:none;
+  margin-bottom:11px;color:#1c1917;transition:border-color .2s}
+.f-in:focus{border-color:#0d9488}
+.f-btn{width:100%;padding:12px;background:#0d9488;color:#fff;border:none;
+  border-radius:9px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer}
+.f-back{display:block;text-align:center;margin-top:11px;font-size:12px;
+  color:#78716c;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+/* PHYSIO DASH */
+#pgDash{background:#f0fdf4;color:#1c1917;overflow-y:auto}
+.dash-top{background:#fff;padding:13px 20px;display:flex;align-items:center;
+  justify-content:space-between;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:20}
+.dash-brand{font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:#0f766e}
+.dash-out{background:none;border:1.5px solid #e2e8f0;border-radius:7px;
+  padding:5px 11px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:#78716c;cursor:pointer}
+.dash-body{padding:18px;max-width:920px;margin:0 auto}
+.dash-h{font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;margin-bottom:3px;color:#1c1917}
+.dash-sub{font-size:12px;color:#78716c;margin-bottom:18px}
+.pat-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:11px;margin-bottom:22px}
+.pcard{background:#fff;border-radius:14px;padding:16px;border:2px solid #e2e8f0;
+  transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.pcard:hover{border-color:#0d9488;transform:translateY(-2px)}
+.pcard.sel{border-color:#0d9488;background:#f0fdfa}
+.pcard-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.pcard-av{width:40px;height:40px;border-radius:50%;color:#fff;display:flex;
+  align-items:center;justify-content:center;font-weight:900;font-size:14px;font-family:'Nunito',sans-serif;flex-shrink:0}
+.pcard-nm{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:#1c1917}
+.pcard-dg{font-size:11px;color:#78716c;margin-top:1px}
+.pcard-cfg{font-size:11px;font-weight:700;color:#0d9488;margin-top:2px}
+.pcard-stats{display:flex;gap:6px;margin-bottom:10px}
+.pcs{flex:1;background:#f8fafc;border-radius:7px;padding:7px 5px;text-align:center}
+.pcs .pn{font-family:'Nunito',sans-serif;font-size:17px;font-weight:900}
+.pcs .pl{font-size:9px;color:#78716c;letter-spacing:.03em;font-weight:700}
+.gcol{color:#22c55e}.rcol{color:#ef4444}
+.pcard-btns{display:flex;gap:7px}
+.pcard-btn{flex:1;padding:7px;border-radius:7px;font-family:'Nunito',sans-serif;
+  font-size:11px;font-weight:700;cursor:pointer;border:none;transition:all .2s}
+.pcard-btn.view{background:#f0fdf4;color:#0d9488;border:1.5px solid #ccfbf1}
+.pcard-btn.edit{background:#f8fafc;color:#78716c;border:1.5px solid #e2e8f0}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;
+  display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-bg.off{display:none}
+.modal{background:#fff;border-radius:18px;padding:24px;width:100%;max-width:340px;
+  box-shadow:0 20px 60px rgba(0,0,0,.18)}
+.modal h3{font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;color:#1c1917;margin-bottom:3px}
+.modal-sub{font-size:12px;color:#78716c;margin-bottom:18px}
+.form-row{margin-bottom:12px}
+.form-row label{display:block;font-size:11px;font-weight:700;color:#78716c;margin-bottom:4px;letter-spacing:.02em}
+.form-row select,.form-row input{width:100%;padding:10px 11px;border:2px solid #e2e8f0;
+  border-radius:8px;font-family:'Nunito Sans',sans-serif;font-size:13px;color:#1c1917;
+  outline:none;transition:border-color .2s;background:#fff}
+.form-row select:focus,.form-row input:focus{border-color:#0d9488}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.modal-btns{display:flex;gap:8px;margin-top:3px}
+.modal-save{flex:1;padding:11px;background:#0d9488;color:#fff;border:none;
+  border-radius:8px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer}
+.modal-cancel{padding:11px 14px;background:#f8fafc;color:#78716c;
+  border:1.5px solid #e2e8f0;border-radius:8px;
+  font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer}
+
+/* REPORT */
+.report-wrap{display:flex;flex-direction:column;gap:11px}
+.rsec{background:#fff;border-radius:13px;padding:16px;border:1px solid #e2e8f0;
+  box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.rsec h4{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;
+  margin-bottom:11px;padding-bottom:8px;border-bottom:2px solid #f1f5f9;color:#1c1917}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:11px}
+.kpi{background:#f8fafc;border-radius:9px;padding:11px 7px;text-align:center}
+.kpi .kv{font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;color:#0d9488}
+.kpi .kl{font-size:9px;color:#78716c;margin-top:2px;letter-spacing:.04em;font-weight:700}
+.ai-note{background:#f0fdf4;border:2px solid #bbf7d0;border-radius:9px;
+  padding:10px 13px;font-size:12px;line-height:1.65;color:#166534}
+.exrow{border:1.5px solid #e2e8f0;border-radius:9px;padding:12px;margin-bottom:7px}
+.exrow-h{display:flex;justify-content:space-between;margin-bottom:6px}
+.exrow-nm{font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;color:#1c1917}
+.exrow-t{font-size:10px;color:#78716c}
+.pbar{background:#f1f5f9;border-radius:20px;height:5px;overflow:hidden;margin-bottom:6px}
+.pbarf{height:100%;border-radius:20px;background:linear-gradient(90deg,#0d9488,#14b8a6)}
+.exrow-d{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:#78716c}
+.exrow-d strong{color:#1c1917;font-weight:700}
+.ppill{border-radius:20px;padding:2px 8px;font-size:10px;font-weight:700;
+  border:1.5px solid;display:inline-block;margin:2px}
+.ppill.none{background:#dcfce7;color:#15803d;border-color:#86efac}
+.ppill.mild{background:#fef9c3;color:#854d0e;border-color:#fde047}
+.ppill.moderate{background:#fee2e2;color:#b91c1c;border-color:#fca5a5}
+.snaps{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px}
+.snap-item{border-radius:7px;overflow:hidden;border:2px solid #e2e8f0;position:relative}
+.snap-item img{width:100%;display:block}
+.snap-lbl{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.6);
+  color:#fff;font-size:8px;padding:3px 5px;display:flex;justify-content:space-between;align-items:center}
+.sbadge{font-size:8px;font-weight:800;padding:1px 4px;border-radius:3px}
+.sg{background:#22c55e}.sr{background:#ef4444}
+.hist-row{display:flex;gap:9px;padding:6px 0;border-bottom:1px solid #f1f5f9;font-size:11px;flex-wrap:wrap}
+
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:#1c1917;color:#fff;padding:10px 20px;border-radius:40px;
+  font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;
+  z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+#toast.show{opacity:1}
+@keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.5)}100%{transform:scale(1)}}
+.pop{animation:pop .28s ease}
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<div class="page" id="pgHome">
+  <div class="home-logo">
+    <div class="logo-mark"><div class="logo-cross"></div></div>
+    <h1>Athulya Physio</h1>
+    <p>Intelligent Exercise Supervision</p>
+  </div>
+  <div class="home-btns">
+    <button class="home-btn primary" id="btnPatient">I am a Patient</button>
+    <button class="home-btn secondary" id="btnPhysio">I am a Physiotherapist</button>
+  </div>
+</div>
+
+<!-- PATIENT SELECT -->
+<div class="page off" id="pgSelect">
+  <div class="page-top">
+    <button class="back-btn" id="btnBackSelect">Back</button>
+    <div class="page-title">Select Your Name</div>
+  </div>
+  <div class="pat-grid" id="patGrid"></div>
+</div>
+
+<!-- BRIEF -->
+<div class="page off" id="pgBrief">
+  <div class="brief-inner">
+    <div class="brief-prog" id="bProg">Exercise assigned by your physiotherapist</div>
+    <div class="brief-name" id="bName">Arm Elevation</div>
+    <div class="brief-badge" id="bSide">RIGHT ARM</div>
+    <div class="brief-illus"><canvas id="illustCanvas" style="width:100%;height:100%;display:block"></canvas></div>
+    <div class="brief-steps" id="bSteps"></div>
+    <div class="brief-voice">
+      <div class="vd"><div class="vdot"></div><div class="vdot"></div><div class="vdot"></div></div>
+      <span class="brief-voice-t" id="bVoice">Reading instructions...</span>
+    </div>
+    <div class="brief-skip" id="btnSkip">Skip - start now</div>
+  </div>
+</div>
+
+<!-- CAMERA -->
+<div class="page off" id="pgCam">
+  <video id="vid" autoplay muted playsinline></video>
+  <canvas id="oc"></canvas>
+  <div class="cam-top">
+    <div class="cam-info">
+      <div class="cam-ex-name" id="camName">Arm Elevation</div>
+      <div class="cam-badge" id="camSide">RIGHT ARM</div>
+    </div>
+    <button class="cam-stop" id="btnStop">Stop</button>
+  </div>
+  <div class="cam-bot">
+    <div class="rep-row">
+      <div class="rchip ok"><div class="rn" id="rOk">0</div><div class="rl">CORRECT</div></div>
+      <div class="rchip bad"><div class="rn" id="rBad">0</div><div class="rl">WRONG</div></div>
+      <div class="rchip set"><div class="rn" id="rSet">1</div><div class="rl">SET</div></div>
+      <div class="rchip tgt"><div class="rn" id="rTgt">10</div><div class="rl">TARGET</div></div>
+    </div>
+    <div class="pain-row">
+      <span class="plbl">PAIN?</span>
+      <button class="pb" id="pb0">None</button>
+      <button class="pb" id="pb1">Mild</button>
+      <button class="pb" id="pb2">Severe</button>
+    </div>
+  </div>
+</div>
+
+<!-- PHYSIO LOGIN -->
+<div class="page off" id="pgPhyLogin">
+  <div class="phy-card">
+    <h2>Physiotherapist</h2>
+    <p>Sign in to manage patients and view reports</p>
+    <input class="f-in" type="password" id="phyPwd" placeholder="Password">
+    <button class="f-btn" id="btnPhyLogin">Sign In</button>
+    <span class="f-back" id="btnBackPhyLogin">Back to home</span>
+  </div>
+</div>
+
+<!-- PHYSIO DASH -->
+<div class="page off" id="pgDash">
+  <div class="dash-top">
+    <div class="dash-brand">Athulya Physio - Dashboard</div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="width:28px;height:28px;border-radius:50%;background:#7c3aed;color:#fff;
+        display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10px;font-family:'Nunito',sans-serif">DR</div>
+      <span style="font-size:12px;color:#78716c;font-weight:600">Dr. Revathi</span>
+      <button class="dash-out" id="btnDashOut">Sign Out</button>
+    </div>
+  </div>
+  <div class="dash-body">
+    <div class="dash-h">Patient Overview</div>
+    <div class="dash-sub">Configure exercises and review session reports</div>
+    <div class="pat-cards" id="dashCards"></div>
+    <div class="report-wrap" id="reportWrap"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg off" id="modalBg">
+  <div class="modal">
+    <h3>Patient Setup</h3>
+    <div class="modal-sub" id="modalSub">Configure exercise</div>
+    <div class="form-row">
+      <label>EXERCISE</label>
+      <select id="fExercise">
+        <option value="arm_elevation">Arm Elevation (Shoulder)</option>
+        <option value="mini_squat">Mini Squat (Knee / ACL)</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>AFFECTED SIDE</label>
+      <select id="fSide">
+        <option value="right">Right</option>
+        <option value="left">Left</option>
+      </select>
+    </div>
+    <div class="form-row-2">
+      <div class="form-row" style="margin-bottom:0">
+        <label>REPS PER SET</label>
+        <input type="number" id="fReps" min="5" max="30" value="10">
+      </div>
+      <div class="form-row" style="margin-bottom:0">
+        <label>SETS</label>
+        <input type="number" id="fSets" min="1" max="5" value="3">
+      </div>
+    </div>
+    <div class="form-row">
+      <label>REST BETWEEN SETS (seconds)</label>
+      <input type="number" id="fRest" min="10" max="120" value="30">
+    </div>
+    <div class="modal-btns">
+      <button class="modal-cancel" id="btnModalCancel">Cancel</button>
+      <button class="modal-save" id="btnModalSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+<script>
+// ===================== AUDIO =====================
+var _ac = null;
+function getAC(){ if(!_ac) _ac = new(window.AudioContext||window.webkitAudioContext)(); return _ac; }
+function tone(f,d,t,v,dl){
+  try{ var a=getAC(),o=a.createOscillator(),g=a.createGain();
+    o.connect(g);g.connect(a.destination);o.type=t||'sine';o.frequency.value=f;
+    var s=a.currentTime+(dl||0);
+    g.gain.setValueAtTime(0,s);g.gain.linearRampToValueAtTime(v||.3,s+.01);
+    g.gain.exponentialRampToValueAtTime(.001,s+(d||.12));
+    o.start(s);o.stop(s+(d||.14)+.05); }catch(e){} }
+var SND = {
+  correct: function(){ tone(523,.07,'sine',.32); tone(659,.09,'sine',.28,.08); tone(784,.18,'sine',.22,.17); },
+  wrong:   function(){ tone(220,.16,'sawtooth',.3); tone(185,.2,'sawtooth',.24,.15); },
+  beep:    function(){ tone(659,.09,'sine',.36); },
+  go:      function(){ tone(523,.09,'sine',.3); tone(784,.12,'sine',.28,.11); tone(1047,.2,'sine',.24,.24); },
+  rest:    function(){ tone(440,.2,'sine',.3); tone(330,.25,'sine',.25,.22); }
+};
+
+// ===================== SPEECH =====================
+function say(txt,cb){
+  try{ window.speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(txt);
+    u.rate=.88; u.pitch=1.05; u.volume=1; u.lang='en-IN';
+    if(cb) u.onend=cb;
+    window.speechSynthesis.speak(u); }
+  catch(e){ if(cb) setTimeout(cb,500); } }
+function shutUp(){ try{ window.speechSynthesis.cancel(); }catch(e){} }
+
+// ===================== DATA =====================
+var PATIENTS = {
+  arjun: { name:'Arjun Kumar',  initials:'AK', color:'#0d9488', diagnosis:'Post-op Shoulder (Week 3)' },
+  meera: { name:'Meera Nair',   initials:'MN', color:'#7c3aed', diagnosis:'ACL Reconstruction (Phase 2)' },
+  ravi:  { name:'Ravi Shankar', initials:'RS', color:'#b45309', diagnosis:'Frozen Shoulder Rehab' }
+};
+
+var EXERCISES = {
+  arm_elevation: {
+    name: 'Arm Elevation',
+    posLabel: 'STANDING - FACING CAMERA',
+    steps: [
+      'Stand straight. Let your SIDE arm hang at your side.',
+      'Slowly raise your arm FORWARD - like pointing at the wall ahead.',
+      'Raise until arm is fully at shoulder height or above.',
+      'Hold for 2 seconds at the top.',
+      'Slowly lower all the way back down. That is 1 rep.'
+    ],
+    voiceIntro: 'Arm elevation. Stand straight facing the camera. Raise your SIDE arm forward to shoulder height. Hold 2 seconds then lower slowly.',
+    jRight: [24,12,14], jLeft: [23,11,13],
+    UP_THRESH: 0.15,    // wrist must be 15% of frame ABOVE shoulder (stricter)
+    DOWN_THRESH: 0.10,  // wrist must drop 10% BELOW shoulder to fully reset
+    HOLD_TIME: 1500,    // 1.5s hold at top
+    ELBOW_ANGLE_MIN: 150,
+    isKnee: false,
+    phase: { rest:'Arm at side - ready', move:'RAISE arm to shoulder height', peak:'HOLD steady!', ret:'LOWER all the way down' }
+  },
+  mini_squat: {
+    name: 'Mini Squat',
+    posLabel: 'STANDING - FEET APART',
+    steps: [
+      'Stand with feet shoulder-width apart.',
+      'Hold a chair or wall nearby for safety.',
+      'Slowly bend BOTH knees - only go a quarter of the way down.',
+      'Keep back straight and knees over toes.',
+      'Hold 2 seconds then rise back up. That is 1 rep.'
+    ],
+    voiceIntro: 'Mini squat. Stand with feet apart. Hold a chair nearby. Bend both knees a quarter of the way down. Hold 2 seconds then rise slowly.',
+    jRight: [24,26,28], jLeft: [23,25,27],
+    UP_THRESH: 0.10,
+    DOWN_THRESH: 0.05,
+    HOLD_TIME: 1000,
+    ELBOW_ANGLE_MIN: 0,
+    isKnee: true,
+    phase: { rest:'Stand tall - get ready', move:'BEND knees - squat!', peak:'HOLD - 2 seconds', ret:'RISE up slowly' }
+  }
+};
+
+var cfg      = JSON.parse(localStorage.getItem('athulyaConfig') || '{}');
+var sessions = JSON.parse(localStorage.getItem('athulyaData')   || '{}');
+
+// ===================== SESSION STATE =====================
+var curUser = null, curCfg = null, curEx = null;
+var sessLog = null, aLog = null, curPain = 'none';
+var camStream = null, mpCam = null, snapTmr = null;
+
+// Rep state - same approach as the proven script
+var stage = 'down';   // down -> up -> hold -> down
+var raiseTime = 0;
+var currentSet = 1, repsInSet = 0;
+var inRest = false, restEndTime = 0;
+var isRunning = false;
+var lastWrongSideTime = 0;
+var curAngle = 0;
+var armBaselineNoseX = null;   // for trunk lean detection
+var lastCompLog = 0;           // throttle compensation wrong-rep logging
+var compensations = [];        // log all compensations this session
+
+// ===================== NAV =====================
+function go(id){
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.add('off'); });
+  document.getElementById(id).classList.remove('off');
+}
+
+// ===================== SELECT =====================
+function buildSelect(){
+  var g = document.getElementById('patGrid'); g.innerHTML = '';
+  Object.keys(PATIENTS).forEach(function(key){
+    var p = PATIENTS[key];
+    var c = cfg[key];
+    var ex = c ? EXERCISES[c.exercise] : null;
+    var el = document.createElement('div');
+    el.className = 'pat-btn';
+    el.innerHTML =
+      '<div class="pat-av" style="background:'+p.color+'">'+p.initials+'</div>'+
+      '<div class="pat-info">'+
+        '<div class="pat-name">'+p.name+'</div>'+
+        '<div class="pat-sub">'+p.diagnosis+'</div>'+
+        (c && ex
+          ? '<div class="pat-tag">'+ex.name+' - '+(c.side||'right').toUpperCase()+' - '+c.reps+' reps x '+c.sets+' sets</div>'
+          : '<div class="pat-notset">Not configured - see physiotherapist</div>')+
+      '</div>';
+    if(c && ex) el.onclick = function(){ startPatient(key); };
+    g.appendChild(el);
+  });
+}
+
+// ===================== PATIENT START =====================
+function startPatient(key){
+  curUser = key; curCfg = cfg[key]; curEx = EXERCISES[curCfg.exercise];
+  sessLog = { patient:key, patientName:PATIENTS[key].name,
+    exercises:[], snapshots:[], totalCorrect:0, totalWrong:0,
+    startTime:new Date().toISOString(), endTime:null, romData:{} };
+  drawIllus();
+  showBrief();
+}
+
+// ===================== BRIEF =====================
+function showBrief(){
+  var ex = curEx, c = curCfg;
+  var sideLabel = (c.side||'right').toUpperCase() + (ex.isKnee ? ' LEG' : ' ARM');
+  document.getElementById('bName').textContent = ex.name;
+  document.getElementById('bSide').textContent = sideLabel;
+  document.getElementById('bSteps').innerHTML = ex.steps.map(function(s,i){
+    return '<div class="bstep"><div class="bstep-n">'+(i+1)+'</div>'+
+           '<div class="bstep-t">'+s.replace(/SIDE/g,(c.side||'right').toUpperCase())+'</div></div>';
+  }).join('');
+  go('pgBrief');
+  document.getElementById('bVoice').textContent = 'Listening to instructions...';
+  var txt = ex.voiceIntro.replace(/SIDE/g, c.side||'right') +
+    ' You will do '+c.reps+' reps for '+c.sets+' sets.';
+  say(txt, function(){
+    document.getElementById('bVoice').textContent = 'Starting camera...';
+    setTimeout(launchCam, 700);
+  });
+}
+function skipBrief(){ shutUp(); launchCam(); }
+
+// ===================== ILLUSTRATION =====================
+function drawIllus(){
+  var canvas = document.getElementById('illustCanvas');
+  var cont = document.getElementById('bIllus') || canvas.parentElement;
+  canvas.width = cont.offsetWidth || 360;
+  canvas.height = cont.offsetHeight || 150;
+  var ctx2 = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height, cx = W/2, cy = H/2;
+  ctx2.clearRect(0,0,W,H);
+  ctx2.lineCap = 'round'; ctx2.lineJoin = 'round';
+  var isArm = !curEx.isKnee;
+  if(isArm){
+    // Head
+    ctx2.strokeStyle='rgba(13,148,136,.35)'; ctx2.fillStyle='rgba(13,148,136,.12)'; ctx2.lineWidth=2.5;
+    ctx2.beginPath(); ctx2.arc(cx,cy-52,12,0,Math.PI*2); ctx2.fill(); ctx2.stroke();
+    // Torso
+    ctx2.beginPath(); ctx2.moveTo(cx,cy-40); ctx2.lineTo(cx,cy-8); ctx2.stroke();
+    // Resting arm (dashed)
+    ctx2.setLineDash([5,4]); ctx2.strokeStyle='rgba(13,148,136,.22)'; ctx2.lineWidth=5;
+    ctx2.beginPath(); ctx2.moveTo(cx,cy-30); ctx2.lineTo(cx,cy+10); ctx2.stroke();
+    // Target arm raised (solid bright)
+    ctx2.setLineDash([]); ctx2.strokeStyle='rgba(13,148,136,.9)'; ctx2.lineWidth=5;
+    ctx2.beginPath(); ctx2.moveTo(cx,cy-30); ctx2.lineTo(cx-50,cy-30); ctx2.stroke();
+    // Arrow
+    ctx2.fillStyle='rgba(13,148,136,.9)';
+    ctx2.beginPath(); ctx2.moveTo(cx-58,cy-30);
+    ctx2.lineTo(cx-48,cy-38); ctx2.lineTo(cx-48,cy-22); ctx2.closePath(); ctx2.fill();
+    ctx2.font='600 10px Nunito Sans'; ctx2.fillStyle='rgba(13,148,136,.75)';
+    ctx2.textAlign='center'; ctx2.fillText('TARGET POSITION',cx-24,cy+30);
+  } else {
+    // Squat illustration
+    ctx2.strokeStyle='rgba(13,148,136,.35)'; ctx2.fillStyle='rgba(13,148,136,.12)'; ctx2.lineWidth=2.5;
+    ctx2.beginPath(); ctx2.arc(cx,cy-50,11,0,Math.PI*2); ctx2.fill(); ctx2.stroke();
+    ctx2.beginPath(); ctx2.moveTo(cx,cy-39); ctx2.lineTo(cx,cy-10); ctx2.stroke();
+    // Ghost straight legs
+    ctx2.setLineDash([5,4]); ctx2.strokeStyle='rgba(13,148,136,.22)'; ctx2.lineWidth=4;
+    ctx2.beginPath(); ctx2.moveTo(cx,cy-10); ctx2.lineTo(cx-16,cy+28); ctx2.lineTo(cx-14,cy+55); ctx2.stroke();
+    ctx2.beginPath(); ctx2.moveTo(cx,cy-10); ctx2.lineTo(cx+16,cy+28); ctx2.lineTo(cx+14,cy+55); ctx2.stroke();
+    // Target squat legs
+    ctx2.setLineDash([]); ctx2.strokeStyle='rgba(13,148,136,.9)'; ctx2.lineWidth=4;
+    ctx2.beginPath(); ctx2.moveTo(cx,cy-10); ctx2.lineTo(cx-20,cy+18); ctx2.lineTo(cx-12,cy+46); ctx2.stroke();
+    ctx2.beginPath(); ctx2.moveTo(cx,cy-10); ctx2.lineTo(cx+20,cy+18); ctx2.lineTo(cx+12,cy+46); ctx2.stroke();
+    ctx2.fillStyle='rgba(13,148,136,.9)';
+    ctx2.beginPath(); ctx2.moveTo(cx,cy+16); ctx2.lineTo(cx-8,cy+6); ctx2.lineTo(cx+8,cy+6); ctx2.closePath(); ctx2.fill();
+    ctx2.font='600 10px Nunito Sans'; ctx2.fillStyle='rgba(13,148,136,.75)';
+    ctx2.textAlign='center'; ctx2.fillText('BEND TO THIS DEPTH',cx,cy+68);
+  }
+  ctx2.textAlign='left'; ctx2.setLineDash([]);
+}
+
+// ===================== CAMERA =====================
+function launchCam(){
+  // Reset session state
+  aLog = { name:curEx.name, type:curCfg.exercise,
+    correctReps:0, wrongReps:0, angles:[], avgAngle:0,
+    painLevels:[], compensations:[], startTime:new Date().toLocaleTimeString(), endTime:null };
+  stage = 'down'; raiseTime = 0;
+  currentSet = 1; repsInSet = 0;
+  inRest = false; isRunning = false;
+  curPain = 'none'; curAngle = 0;
+  armBaselineNoseX = null; lastCompLog = 0; compensations = [];
+
+  document.getElementById('rOk').textContent = '0';
+  document.getElementById('rBad').textContent = '0';
+  document.getElementById('rSet').textContent = '1';
+  document.getElementById('rTgt').textContent = curCfg.reps;
+  document.getElementById('camName').textContent = curEx.name;
+  document.getElementById('camSide').textContent =
+    (curCfg.side||'right').toUpperCase() + (curEx.isKnee ? ' LEG' : ' ARM');
+  document.querySelectorAll('.pb').forEach(function(b){ b.className='pb'; });
+
+  go('pgCam');
+  var canvas = document.getElementById('oc');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+
+  navigator.mediaDevices.getUserMedia({
+    video:{ facingMode:'user', width:{ideal:1280}, height:{ideal:720} }, audio:false
+  }).then(function(stream){
+    camStream = stream;
+    var v = document.getElementById('vid');
+    v.srcObject = stream; v.play();
+    v.onloadedmetadata = function(){
+      canvas.width = v.videoWidth || window.innerWidth;
+      canvas.height = v.videoHeight || window.innerHeight;
+      initMP();
+    };
+    snapTmr = setInterval(takeSnap, 20000);
+    // Give camera 1.5s to settle then start
+    setTimeout(function(){
+      isRunning = true;
+      say('Starting. Get into position.', function(){
+        say('Go!'); SND.go();
+      });
+    }, 1500);
+  }).catch(function(){
+    say('Camera not available. Demo mode.'); startSim();
+  });
+}
+
+// ===================== MEDIAPIPE =====================
+function initMP(){
+  var v = document.getElementById('vid');
+  try{
+    var mp = new Pose({ locateFile:function(f){ return 'https://cdn.jsdelivr.net/npm/@mediapipe/pose/'+f; } });
+    mp.setOptions({ modelComplexity:1, smoothLandmarks:true,
+      minDetectionConfidence:.5, minTrackingConfidence:.5 });
+    mp.onResults(onFrame);
+    mpCam = new Camera(v, {
+      onFrame: async function(){ if(v.readyState>=2) await mp.send({image:v}); },
+      width:640, height:480
+    });
+    mpCam.start();
+  }catch(e){ startSim(); }
+}
+
+// ===================== MAIN FRAME HANDLER =====================
+// Based on the proven working script logic - wrist vs shoulder Y comparison
+function onFrame(results){
+  var canvas = document.getElementById('oc');
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  if(!isRunning){ drawPill(ctx,W,'Get into position - starting soon...','rgba(255,255,255,.8)'); return; }
+
+  // Handle rest between sets
+  if(inRest){
+    var remaining = Math.ceil((restEndTime - performance.now()) / 1000);
+    if(remaining > 0){
+      drawPill(ctx,W,'Rest - '+remaining+' seconds remaining','#fde047');
+      // big countdown in centre
+      ctx.font='900 80px Nunito'; ctx.textAlign='center'; ctx.fillStyle='#fde047';
+      ctx.fillText(remaining, W/2, H/2+28); ctx.textAlign='left';
+      return;
+    } else {
+      inRest = false;
+      stage = 'down';
+      SND.go();
+      say('Rest over. Starting set '+currentSet+'. Go!');
+    }
+  }
+
+  var lm = results && results.poseLandmarks ? results.poseLandmarks : null;
+  if(!lm){ drawPill(ctx,W,'Step back - show full body','rgba(255,255,255,.8)'); return; }
+
+  var side = curCfg.side || 'right';
+  var ex = curEx;
+
+  // Landmark indices for correct side
+  var shoulderIdx = side==='right' ? 12 : 11;
+  var elbowIdx    = side==='right' ? 14 : 13;
+  var wristIdx    = side==='right' ? 16 : 15;
+  var hipIdx      = side==='right' ? 24 : 23;
+  // Opposite side (for wrong-arm check)
+  var oppShoulderIdx = side==='right' ? 11 : 12;
+  var oppWristIdx    = side==='right' ? 15 : 16;
+  // Knee/ankle for squat
+  var kneeIdx  = side==='right' ? 26 : 25;
+  var ankleIdx = side==='right' ? 28 : 27;
+
+  var shoulder = lm[shoulderIdx];
+  var elbow    = lm[elbowIdx];
+  var wrist    = lm[wristIdx];
+  var hip      = lm[hipIdx];
+  var knee     = lm[kneeIdx];
+  var ankle    = lm[ankleIdx];
+
+  // Draw skeleton (mirrored X)
+  drawSkel(ctx, lm, W, H, [shoulderIdx,elbowIdx,wristIdx,hipIdx,kneeIdx,ankleIdx]);
+
+  // --- WRONG SIDE CHECK (from proven script) ---
+  if(!ex.isKnee){
+    var oppShoulder = lm[oppShoulderIdx];
+    var oppWrist    = lm[oppWristIdx];
+    if(oppShoulder && oppWrist && oppWrist.y < oppShoulder.y - ex.UP_THRESH){
+      var now2 = performance.now();
+      if(now2 - lastWrongSideTime > 2000){
+        say('Please use your '+side+' arm.');
+        lastWrongSideTime = now2;
+      }
+      drawPill(ctx,W,'Use your '+side.toUpperCase()+' arm!','#fca5a5');
+      return;
+    }
+  }
+
+  // --- STANCE CHECK ---
+  if(shoulder && shoulder.y > 0.72){
+    drawPill(ctx,W,'Stand up straight','#fde047'); return;
+  }
+
+  // --- ELBOW EXTENSION CHECK (shoulder exercises) ---
+  if(!ex.isKnee && elbow && shoulder && wrist){
+    var elbowAng = angleBetween(shoulder, elbow, wrist);
+    curAngle = elbowAng;
+    if(aLog) aLog.angles.push(elbowAng);
+    updateRom(elbowAng);
+    // Elbow must not be bent more than 30 degrees from straight
+    if(elbowAng < ex.ELBOW_ANGLE_MIN){
+      drawPill(ctx,W,'Keep arm straight - do not bend elbow','#fde047');
+      return;
+    }
+    // Elbow must stay BELOW shoulder level during raise (no shrugging)
+    if(elbow.y < shoulder.y - 0.08 && wrist.y > shoulder.y){
+      drawPill(ctx,W,'Lower your elbow - raise from the shoulder','#fde047');
+      return;
+    }
+  }
+
+  // --- REP STATE MACHINE (same logic as proven script) ---
+  var feedback = '';
+  var now = performance.now();
+
+  if(!ex.isKnee){
+    // ARM ELEVATION - use wrist Y vs shoulder Y
+    var wY = wrist ? wrist.y : 0.5;
+    var sY = shoulder ? shoulder.y : 0.5;
+    // Draw shoulder reference line
+    drawRefLine(ctx, W, H, sY);
+
+    // ── COMPENSATION CHECKS ──
+    var compFault = null;
+
+    // 1. Elbow must stay reasonably straight
+    if(elbowAng < 140){
+      compFault = 'Keep arm straight - elbow is bending';
+    }
+    // 2. Sideways drift: wrist X should stay close to shoulder X (not swing sideways)
+    if(!compFault && wrist && shoulder){
+      var lateralDrift = Math.abs((W - wrist.x*W) - (W - shoulder.x*W)) / W;
+      if(lateralDrift > 0.22){
+        compFault = 'Raise arm FORWARD - not sideways';
+      }
+    }
+    // 3. Shoulder shrug: elbow rising above shoulder while wrist still low
+    if(!compFault && elbow && shoulder && wrist.y > shoulder.y){
+      if(elbow.y < shoulder.y - 0.07){
+        compFault = 'Do not shrug - keep shoulder down';
+      }
+    }
+    // 4. Trunk lean: check if nose/head X has drifted from baseline
+    var nose = lm[0];
+    if(!compFault && nose && nose.visibility > 0.5){
+      if(!armBaselineNoseX) armBaselineNoseX = nose.x;
+      var noseXDrift = Math.abs(nose.x - armBaselineNoseX);
+      if(noseXDrift > 0.12 && stage !== 'down'){
+        compFault = 'Stand straight - do not lean to the side';
+      }
+    }
+
+    if(compFault){
+      drawPill(ctx, W, compFault, '#fca5a5');
+      // Log compensation but don't count rep
+      if(stage === 'up' || stage === 'hold'){
+        // They tried to raise but with compensation - log as wrong
+        if(!lastCompLog || now - lastCompLog > 2000){
+          aLog.wrongReps++; sessLog.totalWrong++;
+          document.getElementById('rBad').textContent = aLog.wrongReps;
+          var badEl = document.getElementById('rBad');
+          badEl.classList.remove('pop'); void badEl.offsetWidth; badEl.classList.add('pop');
+          SND.wrong();
+          captureRepSnap(false, compFault);
+          if(aLog) aLog.compensations.push({time:new Date().toLocaleTimeString(),reason:compFault,angle:Math.round(curAngle)});
+          lastCompLog = now;
+          stage = 'down';
+        }
+      }
+      return;
+    }
+
+    // ── REP STATE MACHINE ──
+    if(stage === 'down'){
+      armBaselineNoseX = nose ? nose.x : armBaselineNoseX; // recalibrate baseline at rest
+      if(wY < sY - ex.UP_THRESH){
+        stage = 'up'; raiseTime = now;
+        feedback = ex.phase.peak;
+      } else {
+        feedback = ex.phase.move;
+        // Show how far they need to go
+        var pctUp = Math.max(0, Math.min(100, Math.round((sY - wY) / ex.UP_THRESH * 100)));
+        if(pctUp > 20) feedback = 'RAISE higher - ' + pctUp + '% there';
+      }
+    } else if(stage === 'up'){
+      // Make sure wrist stays above threshold - if they drop early, catch it
+      if(wY > sY - ex.UP_THRESH * 0.5){
+        // Dropped before hold completed - wrong rep
+        aLog.wrongReps++; sessLog.totalWrong++;
+        document.getElementById('rBad').textContent = aLog.wrongReps;
+        SND.wrong();
+        captureRepSnap(false, 'Arm dropped before completing hold');
+        say('Hold longer at the top');
+        stage = 'down'; feedback = ex.phase.rest;
+      } else if(now - raiseTime >= ex.HOLD_TIME){
+        stage = 'hold';
+        recordRep(true);
+        feedback = ex.phase.ret;
+      } else {
+        var holdPct = Math.round((now - raiseTime) / ex.HOLD_TIME * 100);
+        feedback = 'HOLD! ' + holdPct + '%';
+      }
+    } else { // hold - waiting for full lowering
+      if(wY > sY + ex.DOWN_THRESH){
+        stage = 'down';
+        feedback = ex.phase.rest;
+      } else {
+        feedback = ex.phase.ret + ' - all the way down';
+      }
+    }
+
+  } else {
+    // MINI SQUAT - use knee angle
+    // For squats: check BOTH knees and ensure hips stay level (no leg lifting)
+    var kneeIdxOpp  = side==='right' ? 25 : 26;
+    var ankleIdxOpp = side==='right' ? 27 : 28;
+    var hipIdxOpp   = side==='right' ? 23 : 24;
+    var kneeOpp  = lm[kneeIdxOpp];
+    var ankleOpp = lm[ankleIdxOpp];
+    var hipOpp   = lm[hipIdxOpp];
+
+    if(hip && knee && ankle){
+      var kAng = angleBetween(hip, knee, ankle);
+      // Also get opposite knee angle
+      var kAngOpp = (kneeOpp && ankleOpp && hipOpp && kneeOpp.visibility > 0.3)
+        ? angleBetween(hipOpp, kneeOpp, ankleOpp) : kAng;
+      // Use average of both knees for squat detection
+      var kAngAvg = (kAng + kAngOpp) / 2;
+      curAngle = Math.round(kAngAvg);
+      if(aLog) aLog.angles.push(curAngle);
+      updateRom(curAngle);
+
+      // Detect leg lift: if one hip is significantly higher than the other
+      var hipLift = hipOpp ? Math.abs(hip.y - hipOpp.y) > 0.12 : false;
+      // Also detect if ankle is off ground: ankle Y much higher than knee Y (leg lifted)
+      var ankleLift = ankle.y < knee.y - 0.15;
+
+      drawGhostSquat(ctx, lm, W, H, kneeIdx, ankleIdx, hipIdx);
+
+      // ── SQUAT COMPENSATION CHECKS ──
+      var sqCompFault = null;
+
+      // 1. Heel lift: ankle Y rises more than knee Y during squat
+      if(ankle.visibility > 0.3 && knee.visibility > 0.3){
+        if(stage === 'up' && ankle.y < knee.y - 0.12){
+          sqCompFault = 'Keep heels on the ground!';
+        }
+      }
+
+      // 2. Knee valgus: knee X collapses inward compared to ankle X
+      // In mirrored view: for right leg, knee should not go RIGHT of ankle
+      if(!sqCompFault && ankle.visibility > 0.3 && knee.visibility > 0.3){
+        var kneeAnkleXDiff = (knee.x - ankle.x);
+        var valgusThresh = 0.07;
+        if(side === 'right' && kneeAnkleXDiff > valgusThresh){
+          sqCompFault = 'Knee caving in - push knee outward';
+        } else if(side === 'left' && kneeAnkleXDiff < -valgusThresh){
+          sqCompFault = 'Knee caving in - push knee outward';
+        }
+      }
+
+      // 3. Uneven squat: big angle difference between legs
+      if(!sqCompFault){
+        var angleDiff = Math.abs(kAng - kAngOpp);
+        if(angleDiff > 30 && kAngOpp > 0){
+          sqCompFault = 'Squat evenly on both legs';
+        }
+      }
+
+      // 4. Leg lift (original check)
+      if(!sqCompFault && (hipLift || ankleLift)){
+        sqCompFault = 'Keep both feet on the ground!';
+      }
+
+      // 5. Trunk collapse: check torso stays upright (shoulder Y vs hip Y ratio)
+      if(!sqCompFault && shoulder && hip){
+        var torsoLen = Math.abs(shoulder.y - hip.y);
+        if(stage === 'up' && torsoLen < 0.12){
+          sqCompFault = 'Keep back straight - do not lean forward';
+        }
+      }
+
+      if(sqCompFault){
+        drawPill(ctx, W, sqCompFault, '#fca5a5');
+        if((stage === 'up' || stage === 'hold') && (!lastCompLog || now - lastCompLog > 2000)){
+          aLog.wrongReps++; sessLog.totalWrong++;
+          document.getElementById('rBad').textContent = aLog.wrongReps;
+          var sqBadEl = document.getElementById('rBad');
+          sqBadEl.classList.remove('pop'); void sqBadEl.offsetWidth; sqBadEl.classList.add('pop');
+          SND.wrong();
+          captureRepSnap(false, sqCompFault);
+          if(aLog) aLog.compensations.push({time:new Date().toLocaleTimeString(),reason:sqCompFault,angle:Math.round(curAngle)});
+          lastCompLog = now;
+          stage = 'down';
+        }
+        return;
+      }
+
+      if(stage === 'down'){
+        if(kAngAvg < 148){
+          stage = 'up'; raiseTime = now;
+          feedback = ex.phase.peak;
+        } else {
+          var pctDown = Math.round((170 - kAngAvg) / (170 - 148) * 100);
+          feedback = ex.phase.move + (pctDown > 5 ? ' (' + Math.min(100,pctDown) + '%)' : '');
+        }
+      } else if(stage === 'up'){
+        // Check depth maintained
+        if(kAngAvg > 155){
+          // Rose too early - wrong rep
+          aLog.wrongReps++; sessLog.totalWrong++;
+          document.getElementById('rBad').textContent = aLog.wrongReps;
+          SND.wrong();
+          captureRepSnap(false, 'Rose too early - hold depth');
+          say('Hold the squat deeper');
+          stage = 'down'; feedback = ex.phase.rest;
+        } else if(now - raiseTime >= ex.HOLD_TIME){
+          stage = 'hold';
+          recordRep(true);
+          feedback = ex.phase.ret;
+        } else {
+          feedback = ex.phase.peak;
+        }
+      } else {
+        if(kAngAvg > 162){
+          stage = 'down';
+          feedback = ex.phase.rest;
+        } else {
+          feedback = ex.phase.ret;
+        }
+      }
+    }
+  }
+
+  // Draw ghost arm guide for elevation
+  if(!ex.isKnee && shoulder) drawGhostArm(ctx, lm, W, H, shoulderIdx, elbowIdx, side);
+
+  var pillCol = stage==='up'?'#86efac': stage==='hold'?'#93c5fd': '#fde047';
+  drawPill(ctx, W, feedback, pillCol);
+}
+
+// ===================== RECORD REP =====================
+function recordRep(correct){
+  if(!aLog) return;
+  if(correct){
+    aLog.correctReps++; sessLog.totalCorrect++; SND.correct();
+    repsInSet++;
+    say(repsInSet+'');
+  } else {
+    aLog.wrongReps++; sessLog.totalWrong++; SND.wrong();
+    say('Incomplete - complete the full movement.');
+  }
+  document.getElementById('rOk').textContent = aLog.correctReps;
+  document.getElementById('rBad').textContent = aLog.wrongReps;
+  var el = document.getElementById(correct?'rOk':'rBad');
+  el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop');
+  // Capture snapshot for both correct AND wrong reps
+  captureRepSnap(correct, null);
+
+  var totalReps = parseInt(curCfg.reps);
+  var totalSets = parseInt(curCfg.sets);
+
+  if(repsInSet >= totalReps){
+    if(currentSet < totalSets){
+      // Start rest
+      var restSec = parseInt(curCfg.rest||30);
+      inRest = true;
+      restEndTime = performance.now() + restSec*1000;
+      currentSet++;
+      repsInSet = 0;
+      document.getElementById('rSet').textContent = currentSet;
+      SND.rest();
+      say('Set complete. Rest for '+restSec+' seconds.');
+    } else {
+      // All sets done
+      onExDone();
+    }
+  }
+}
+
+// ===================== DRAW HELPERS =====================
+function drawPill(ctx, W, txt, col){
+  ctx.font = '700 17px Nunito, sans-serif';
+  var tw = ctx.measureText(txt).width;
+  var pw = tw+36, ph = 38, px = (W-pw)/2, py = 68;
+  ctx.fillStyle = 'rgba(0,0,0,.6)';
+  rRect(ctx,px,py,pw,ph,12); ctx.fill();
+  ctx.fillStyle = col||'rgba(255,255,255,.9)'; ctx.textAlign='center';
+  ctx.fillText(txt, W/2, py+26); ctx.textAlign='left';
+}
+
+function drawRefLine(ctx, W, H, shoulderY){
+  var ly = shoulderY * H;
+  ctx.beginPath(); ctx.moveTo(0,ly); ctx.lineTo(W,ly);
+  ctx.strokeStyle='rgba(239,68,68,.6)'; ctx.lineWidth=2;
+  ctx.setLineDash([10,6]); ctx.stroke(); ctx.setLineDash([]);
+  ctx.font='600 11px Nunito Sans'; ctx.fillStyle='rgba(239,68,68,.8)';
+  ctx.fillText('Shoulder height - raise above this line', 12, ly-6);
+}
+
+function drawGhostArm(ctx, lm, W, H, sIdx, eIdx, side){
+  // Only show in 'down' stage to guide where to raise
+  if(stage !== 'down') return;
+  var s = lm[sIdx]; if(!s||s.visibility<.3) return;
+  var sx = W - s.x*W, sy = s.y*H;
+  var armLen = H * 0.17;
+  ctx.save();
+  ctx.globalAlpha = .4 + .15*Math.abs(Math.sin(Date.now()/600));
+  ctx.strokeStyle = '#14b8a6'; ctx.lineWidth = 6; ctx.lineCap='round';
+  ctx.setLineDash([9,6]);
+  ctx.beginPath();
+  ctx.moveTo(sx, sy);
+  ctx.lineTo(sx - armLen, sy); // horizontal = target shoulder height
+  ctx.stroke(); ctx.setLineDash([]);
+  // arrowhead
+  ctx.fillStyle = '#14b8a6';
+  ctx.beginPath();
+  ctx.moveTo(sx-armLen-10,sy);
+  ctx.lineTo(sx-armLen+2,sy-8);
+  ctx.lineTo(sx-armLen+2,sy+8);
+  ctx.closePath(); ctx.fill();
+  ctx.font='bold 11px Nunito Sans'; ctx.fillStyle='rgba(20,184,166,.85)';
+  ctx.textAlign='center'; ctx.fillText('RAISE TO HERE',sx-armLen/2,sy-14);
+  ctx.restore();
+}
+
+function drawGhostSquat(ctx, lm, W, H, kIdx, aIdx, hIdx){
+  if(stage !== 'down') return;
+  var k=lm[kIdx],an=lm[aIdx];
+  if(!k||!an||k.visibility<.3) return;
+  var kx=W-k.x*W, ky=k.y*H, ax=W-an.x*W, ay=an.y*H;
+  var legLen = Math.hypot(ax-kx,ay-ky);
+  ctx.save();
+  ctx.globalAlpha = .4 + .15*Math.abs(Math.sin(Date.now()/600));
+  ctx.strokeStyle='#14b8a6'; ctx.lineWidth=5; ctx.lineCap='round';
+  ctx.setLineDash([9,6]);
+  // Ghost lower leg at ~45deg bend
+  ctx.beginPath(); ctx.moveTo(kx,ky);
+  ctx.lineTo(kx+legLen*0.4, ky+legLen*0.85);
+  ctx.stroke(); ctx.setLineDash([]);
+  ctx.font='bold 11px Nunito Sans'; ctx.fillStyle='rgba(20,184,166,.85)';
+  ctx.textAlign='center'; ctx.fillText('BEND TO HERE',kx+50,ky+legLen*0.5);
+  ctx.restore();
+}
+
+function drawSkel(ctx, lm, W, H, activeSet){
+  var xy = function(p){ return [W-p.x*W, p.y*H]; };
+  var conns = [[11,12],[11,13],[13,15],[12,14],[14,16],
+    [11,23],[12,24],[23,24],[23,25],[25,27],[24,26],[26,28]];
+  var actSet = {};
+  activeSet.forEach(function(i){ actSet[i]=true; });
+  conns.forEach(function(pair){
+    var a=pair[0],b=pair[1];
+    if(!lm[a]||!lm[b]||lm[a].visibility<.25||lm[b].visibility<.25) return;
+    var pa=xy(lm[a]),pb=xy(lm[b]);
+    var act = actSet[a]||actSet[b];
+    ctx.beginPath(); ctx.moveTo(pa[0],pa[1]); ctx.lineTo(pb[0],pb[1]);
+    ctx.strokeStyle = act?'rgba(20,184,166,.65)':'rgba(148,163,184,.18)';
+    ctx.lineWidth = act?3:1.5; ctx.stroke();
+  });
+  // Key joint pulse ring
+  var keyIdx = activeSet[1]; // shoulder or knee
+  var qcol = stage==='up'?'#22c55e':stage==='hold'?'#93c5fd':'rgba(20,184,166,.9)';
+  lm.forEach(function(p,i){
+    if(p.visibility<.28) return;
+    var xy2 = xy(p);
+    var isKey = (i===activeSet[1]);
+    var isAct = actSet[i];
+    if(isKey){
+      var t=Date.now()/480;
+      ctx.beginPath(); ctx.arc(xy2[0],xy2[1],15+Math.sin(t)*3,0,Math.PI*2);
+      ctx.strokeStyle=qcol+'88'; ctx.lineWidth=2.5; ctx.stroke();
+      ctx.beginPath(); ctx.arc(xy2[0],xy2[1],23+Math.sin(t+1)*3,0,Math.PI*2);
+      ctx.strokeStyle=qcol+'33'; ctx.lineWidth=1.5; ctx.stroke();
+      ctx.beginPath(); ctx.arc(xy2[0],xy2[1],7,0,Math.PI*2);
+      ctx.fillStyle=qcol; ctx.fill();
+    } else if(isAct){
+      ctx.beginPath(); ctx.arc(xy2[0],xy2[1],5,0,Math.PI*2);
+      ctx.fillStyle='rgba(20,184,166,.8)'; ctx.fill();
+    }
+  });
+}
+
+function angleBetween(a,b,c){
+  var v0={x:a.x-b.x,y:a.y-b.y}, v1={x:c.x-b.x,y:c.y-b.y};
+  var dot=v0.x*v1.x+v0.y*v1.y;
+  var m0=Math.hypot(v0.x,v0.y), m1=Math.hypot(v1.x,v1.y);
+  if(m0<.0001||m1<.0001) return 90;
+  return Math.acos(Math.max(-1,Math.min(1,dot/(m0*m1))))*(180/Math.PI);
+}
+
+function rRect(ctx,x,y,w,h,r){
+  ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r); ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h); ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r); ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath();
+}
+
+// ===================== SIM MODE =====================
+function startSim(){
+  var canvas=document.getElementById('oc');
+  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  isRunning=true;
+  var tick=0;
+  var simTmrLocal=setInterval(function(){
+    if(!isRunning){ clearInterval(simTmrLocal); return; }
+    tick++;
+    var ph=tick%80;
+    var angle;
+    if(!curEx.isKnee){
+      // simulate wrist going above shoulder
+      angle = ph<40?170-(ph/40)*90:80+((ph-40)/40)*90;
+    } else {
+      angle = ph<40?170-(ph/40)*50:120+((ph-40)/40)*50;
+    }
+    curAngle=Math.round(angle);
+    if(aLog){ aLog.angles.push(curAngle); updateRom(curAngle); }
+    var canvas2=document.getElementById('oc');
+    var ctx2=canvas2.getContext('2d');
+    ctx2.clearRect(0,0,canvas2.width,canvas2.height);
+    var W=canvas2.width,H=canvas2.height;
+    // simulate rep logic
+    if(!inRest){
+      var now=performance.now();
+      if(!curEx.isKnee){
+        var simWristY = 0.5 - (ph<40?(ph/40)*.3: .3-((ph-40)/40)*.3);
+        var simShoulderY = 0.5;
+        if(stage==='down'&&simWristY<simShoulderY-curEx.UP_THRESH){
+          stage='up'; raiseTime=now;
+        } else if(stage==='up'&&now-raiseTime>=curEx.HOLD_TIME){
+          stage='hold'; recordRep(true);
+        } else if(stage==='hold'&&simWristY>simShoulderY+curEx.DOWN_THRESH){
+          stage='down';
+        }
+      } else {
+        if(stage==='down'&&angle<145){ stage='up'; raiseTime=now; }
+        else if(stage==='up'&&now-raiseTime>=curEx.HOLD_TIME){ stage='hold'; recordRep(true); }
+        else if(stage==='hold'&&angle>160){ stage='down'; }
+      }
+    }
+    var stageCol = stage==='up'?'#86efac':stage==='hold'?'#93c5fd':'#fde047';
+    var stageMsg = stage==='down'?curEx.phase.move:stage==='up'?curEx.phase.peak:curEx.phase.ret;
+    if(inRest){
+      var rem=Math.ceil((restEndTime-performance.now())/1000);
+      if(rem>0){
+        drawPill(ctx2,W,'Rest - '+rem+' seconds','#fde047');
+        ctx2.font='900 80px Nunito'; ctx2.textAlign='center'; ctx2.fillStyle='#fde047';
+        ctx2.fillText(rem,W/2,H/2+28); ctx2.textAlign='left';
+      } else { inRest=false; stage='down'; SND.go(); }
+    } else {
+      drawPill(ctx2,W,stageMsg,stageCol);
+    }
+    // angle display
+    ctx2.font='bold 13px Nunito Sans'; ctx2.fillStyle='rgba(255,255,255,.7)';
+    ctx2.textAlign='right'; ctx2.fillText(Math.round(curAngle)+'  [SIM]',W-14,72); ctx2.textAlign='left';
+  },220);
+  snapTmr=setInterval(takeSnap,20000);
+}
+
+// ===================== DONE =====================
+function onExDone(){
+  isRunning=false;
+  shutUp();
+  if(aLog){
+    aLog.endTime=new Date().toLocaleTimeString();
+    if(aLog.angles.length)
+      aLog.avgAngle=Math.round(aLog.angles.reduce(function(s,v){return s+v;},0)/aLog.angles.length);
+    sessLog.exercises.push(Object.assign({},aLog));
+  }
+  sessLog.endTime=new Date().toISOString();
+  if(!sessions[curUser]) sessions[curUser]=[];
+  sessions[curUser].unshift(sessLog);
+  localStorage.setItem('athulyaData',JSON.stringify(sessions));
+  stopCam();
+  showToast('Session saved.');
+  say('Excellent! Session complete. Well done!');
+  setTimeout(function(){ go('pgSelect'); },2200);
+}
+
+function stopSession(){
+  isRunning=false; shutUp();
+  if(aLog){
+    aLog.endTime=new Date().toLocaleTimeString();
+    if(aLog.angles.length)
+      aLog.avgAngle=Math.round(aLog.angles.reduce(function(s,v){return s+v;},0)/aLog.angles.length);
+    if(aLog.correctReps+aLog.wrongReps>0) sessLog.exercises.push(Object.assign({},aLog));
+  }
+  if(sessLog&&sessLog.exercises.length){
+    sessLog.endTime=new Date().toISOString();
+    if(!sessions[curUser]) sessions[curUser]=[];
+    sessions[curUser].unshift(sessLog);
+    localStorage.setItem('athulyaData',JSON.stringify(sessions));
+  }
+  stopCam(); go('pgSelect');
+}
+
+function stopCam(){
+  if(camStream){ camStream.getTracks().forEach(function(t){t.stop();}); camStream=null; }
+  if(mpCam){ try{mpCam.stop();}catch(e){} mpCam=null; }
+  if(snapTmr){ clearInterval(snapTmr); snapTmr=null; }
+}
+
+// ===================== HELPERS =====================
+function updateRom(a){
+  if(!curEx||!sessLog) return;
+  if(!sessLog.romData[curEx.name]) sessLog.romData[curEx.name]=[];
+  sessLog.romData[curEx.name].push(a);
+}
+function captureRepSnap(correct, reason){
+  var v = document.getElementById('vid');
+  var c = document.createElement('canvas'); c.width=320; c.height=180;
+  var ctx2 = c.getContext('2d');
+  if(v.readyState===4){
+    ctx2.drawImage(v,0,0,320,180);
+  } else {
+    ctx2.fillStyle='#0f172a'; ctx2.fillRect(0,0,320,180);
+  }
+  // Draw coloured border overlay: green = correct, red = wrong
+  var borderCol = correct ? 'rgba(34,197,94,0.85)' : 'rgba(239,68,68,0.85)';
+  ctx2.strokeStyle = borderCol; ctx2.lineWidth = 8;
+  ctx2.strokeRect(4,4,312,172);
+  // Label top-left
+  ctx2.fillStyle = borderCol;
+  ctx2.fillRect(0,0, correct?86:74, 22);
+  ctx2.fillStyle = '#fff';
+  ctx2.font = 'bold 12px sans-serif';
+  var topLabel = correct ? 'CORRECT REP' : ('WRONG: '+(reason||'incomplete').substring(0,22));
+  ctx2.fillText(topLabel, 6, 15);
+  // Log compensation
+  if(!correct && reason){
+    compensations.push({time:new Date().toLocaleTimeString(),reason:reason,angle:Math.round(curAngle)});
+  }
+  // Rep number
+  var repNum = correct ? aLog.correctReps : aLog.wrongReps;
+  ctx2.fillStyle='rgba(0,0,0,.55)'; ctx2.fillRect(272,0,48,22);
+  ctx2.fillStyle='#fff'; ctx2.textAlign='right';
+  ctx2.fillText('Rep '+repNum, 315, 15);
+  ctx2.textAlign='left';
+  // Timestamp
+  ctx2.fillStyle='rgba(0,0,0,.45)'; ctx2.fillRect(0,158,320,22);
+  ctx2.fillStyle='rgba(255,255,255,.8)'; ctx2.font='10px sans-serif';
+  ctx2.fillText(new Date().toLocaleTimeString()+' - '+curAngle+'deg', 6, 172);
+  if(sessLog){
+    sessLog.snapshots.push({
+      dataUrl: c.toDataURL('image/jpeg',.7),
+      exercise: curEx?curEx.name:'',
+      time: new Date().toLocaleTimeString(),
+      angle: Math.round(curAngle)+'',
+      correct: correct,
+      repType: correct?'correct':'wrong'
+    });
+  }
+}
+
+function takeSnap(){
+  var v=document.getElementById('vid');
+  var c=document.createElement('canvas'); c.width=320; c.height=180;
+  var ctx2=c.getContext('2d');
+  if(v.readyState===4) ctx2.drawImage(v,0,0,320,180);
+  else{ ctx2.fillStyle='#0f172a'; ctx2.fillRect(0,0,320,180);
+    ctx2.fillStyle='#14b8a6'; ctx2.font='13px sans-serif';
+    ctx2.fillText(curEx?curEx.name:'',60,90); ctx2.fillText(new Date().toLocaleTimeString(),60,110); }
+  if(sessLog){ var ok=aLog?(aLog.correctReps>=aLog.wrongReps):true;
+    sessLog.snapshots.push({dataUrl:c.toDataURL('image/jpeg',.6),
+      exercise:curEx?curEx.name:'',time:new Date().toLocaleTimeString(),
+      angle:Math.round(curAngle)+'',correct:ok}); }
+}
+function setPain(level){
+  curPain=level;
+  document.querySelectorAll('.pb').forEach(function(b){ b.className='pb'; });
+  var idx=level==='none'?0:level==='mild'?1:2;
+  document.querySelectorAll('.pb')[idx].className='pb p'+level[0];
+  if(aLog) aLog.painLevels.push({time:new Date().toLocaleTimeString(),level:level});
+  if(level==='moderate'){ SND.wrong(); say('Please rest if you are in pain.'); }
+}
+function showToast(m){
+  var t=document.getElementById('toast'); t.textContent=m;
+  t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); },3000); }
+
+// ===================== PHYSIO =====================
+function phyLogin(){
+  var pw=document.getElementById('phyPwd').value;
+  if(pw==='physio1234'||pw==='1234'){ go('pgDash'); buildDash(); }
+  else showToast('Incorrect password.');
+}
+function buildDash(){
+  var g=document.getElementById('dashCards'); g.innerHTML='';
+  Object.keys(PATIENTS).forEach(function(key){
+    var p=PATIENTS[key], c=cfg[key];
+    var ex=c?EXERCISES[c.exercise]:null;
+    var ss=sessions[key]||[];
+    var tc=ss.reduce(function(s,x){return s+(x.totalCorrect||0);},0);
+    var tw=ss.reduce(function(s,x){return s+(x.totalWrong||0);},0);
+    var el=document.createElement('div'); el.className='pcard';
+    el.innerHTML=
+      '<div class="pcard-top">'+
+        '<div class="pcard-av" style="background:'+p.color+'">'+p.initials+'</div>'+
+        '<div>'+
+          '<div class="pcard-nm">'+p.name+'</div>'+
+          '<div class="pcard-dg">'+p.diagnosis+'</div>'+
+          (c&&ex?'<div class="pcard-cfg">'+ex.name+' - '+(c.side||'right').toUpperCase()+' - '+c.reps+' reps x '+c.sets+' sets</div>':'<div style="font-size:11px;color:#ef4444;margin-top:2px">Not configured</div>')+
+        '</div>'+
+      '</div>'+
+      '<div class="pcard-stats">'+
+        '<div class="pcs"><div class="pn gcol">'+tc+'</div><div class="pl">CORRECT</div></div>'+
+        '<div class="pcs"><div class="pn rcol">'+tw+'</div><div class="pl">WRONG</div></div>'+
+        '<div class="pcs"><div class="pn">'+ss.length+'</div><div class="pl">SESSIONS</div></div>'+
+      '</div>'+
+      '<div class="pcard-btns">'+
+        '<button class="pcard-btn view" data-key="'+key+'" data-action="view">View Report</button>'+
+        '<button class="pcard-btn edit" data-key="'+key+'" data-action="edit">Edit Setup</button>'+
+      '</div>';
+    g.appendChild(el);
+  });
+}
+
+var modalKey=null;
+function openModal(key){
+  modalKey=key;
+  var c=cfg[key]||{};
+  document.getElementById('modalSub').textContent='Configure exercise for '+PATIENTS[key].name;
+  document.getElementById('fExercise').value=c.exercise||'arm_elevation';
+  document.getElementById('fSide').value=c.side||'right';
+  document.getElementById('fReps').value=c.reps||10;
+  document.getElementById('fSets').value=c.sets||3;
+  document.getElementById('fRest').value=c.rest||30;
+  document.getElementById('modalBg').classList.remove('off');
+}
+function closeModal(){ document.getElementById('modalBg').classList.add('off'); }
+function saveNote(key, startTime){
+  var el = document.getElementById('therapistNotes');
+  if(!el) return;
+  localStorage.setItem('notes_'+key+'_'+startTime, el.value);
+  showToast('Notes saved.');
+}
+
+function deleteSession(key, sidx){
+  if(!confirm('Delete this session? This cannot be undone.')) return;
+  sessions[key] = (sessions[key]||[]).filter(function(_,i){ return i !== sidx; });
+  localStorage.setItem('athulyaData', JSON.stringify(sessions));
+  buildDash();
+  viewReport(key);
+  showToast('Session deleted.');
+}
+
+function clearAllSessions(key){
+  if(!confirm('Clear ALL sessions for this patient? This cannot be undone.')) return;
+  sessions[key] = [];
+  localStorage.setItem('athulyaData', JSON.stringify(sessions));
+  buildDash();
+  document.getElementById('reportWrap').innerHTML = '';
+  showToast('All sessions cleared.');
+}
+
+function viewReport(key){
+  var ss = sessions[key]||[], p = PATIENTS[key];
+  var area = document.getElementById('reportWrap');
+  document.querySelectorAll('.pcard').forEach(function(pc){ pc.classList.remove('sel'); });
+
+  if(!ss.length){
+    area.innerHTML = '<div class="rsec"><h4>No sessions yet for '+p.name+'</h4>'+
+      '<p style="color:#78716c;font-size:12px">Patient has not completed a session yet.</p></div>';
+    area.scrollIntoView({behavior:'smooth'}); return;
+  }
+
+  // Session selector + delete buttons
+  var selHtml =
+    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap">'+
+    '<span style="font-size:13px;font-weight:700;color:#1c1917">Session:</span>'+
+    '<select id="sessSelect" style="padding:7px 12px;border:2px solid #e2e8f0;border-radius:9px;'+
+      'font-family:Nunito Sans,sans-serif;font-size:13px;color:#1c1917;outline:none;cursor:pointer">'+
+    ss.map(function(s,i){
+      var d = new Date(s.startTime);
+      return '<option value="'+i+'">'+(i===0?'Latest - ':'')+
+        d.toLocaleDateString('en-IN',{day:'numeric',month:'short'})+' at '+
+        d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})+'</option>';
+    }).join('')+
+    '</select>'+
+    '<button data-delkey="'+key+'" data-delaction="del"'+
+      ' style="padding:6px 12px;background:#fff;border:1.5px solid #fca5a5;color:#ef4444;'+
+      'border-radius:8px;font-family:Nunito,sans-serif;font-weight:700;font-size:11px;cursor:pointer">'+
+      'Delete Session</button>'+
+    (ss.length>1
+      ? '<button data-delkey="'+key+'" data-delaction="delall"'+
+          ' style="padding:6px 12px;background:#fff;border:1.5px solid #e2e8f0;color:#78716c;'+
+          'border-radius:8px;font-family:Nunito,sans-serif;font-weight:700;font-size:11px;cursor:pointer">'+
+          'Clear All</button>'
+      : '')+
+    '</div>';
+
+  area.innerHTML = selHtml + '<div id="reportBody"></div>';
+  area.scrollIntoView({behavior:'smooth',block:'start'});
+
+  document.getElementById('sessSelect').onchange = function(){
+    renderReport(key, parseInt(this.value));
+  };
+  renderReport(key, 0);
+}
+
+function renderReport(key, sidx){
+  var ss = sessions[key]||[], p = PATIENTS[key];
+  var body = document.getElementById('reportBody');
+  if(!body||!ss[sidx]) return;
+  var lat  = ss[sidx];
+  var prev = ss[sidx+1]||null;
+
+  var tc = lat.totalCorrect||0, tw = lat.totalWrong||0;
+  var acc = tc+tw>0 ? Math.round(tc/(tc+tw)*100) : 0;
+  var dur = lat.endTime ? Math.round((new Date(lat.endTime)-new Date(lat.startTime))/60000)+'m' : '--';
+  var ptc=0, ptw=0, pacc=0;
+  if(prev){ ptc=prev.totalCorrect||0; ptw=prev.totalWrong||0; pacc=ptc+ptw>0?Math.round(ptc/(ptc+ptw)*100):0; }
+
+  function delta(cur, prv, hiGood){
+    if(prv===null||prv===undefined) return '';
+    var d=cur-prv; if(d===0) return '<span style="color:#78716c;font-size:10px"> =</span>';
+    var good=hiGood?(d>0):(d<0);
+    return '<span style="color:'+(good?'#22c55e':'#ef4444')+';font-size:10px"> '+(d>0?'+':'')+d+'</span>';
+  }
+
+  var allComps = (lat.exercises||[]).reduce(function(a,e){return a.concat(e.compensations||[]);}, []);
+  var compByType = {};
+  allComps.forEach(function(cp){
+    if(!compByType[cp.reason]) compByType[cp.reason]=[];
+    compByType[cp.reason].push(cp);
+  });
+
+  var wrongSnaps   = (lat.snapshots||[]).filter(function(s){return !s.correct;});
+  var correctSnaps = (lat.snapshots||[]).filter(function(s){return  s.correct;});
+
+  // Clinical explanations for each compensation
+  var TIPS = {
+    'Keep arm straight - elbow is bending':{
+      clinical:'Elbow flexion during shoulder elevation',
+      why:'Elbow angle too acute — arm not fully extended. Reduces true shoulder ROM measured.',
+      fix:'Cue patient to lock elbow before raising. Check for pain-inhibition causing protective flexion.'
+    },
+    'Raise arm FORWARD - not sideways':{
+      clinical:'Arm abduction instead of forward flexion',
+      why:'Wrist tracking laterally rather than forward — poor motor control or movement confusion.',
+      fix:'Place a target directly in front. Use mirror feedback. Re-demonstrate the sagittal plane.'
+    },
+    'Do not shrug - keep shoulder down':{
+      clinical:'Scapular elevation / shoulder shrug compensation',
+      why:'Trapezius over-firing to substitute for restricted glenohumeral flexion. Very common post-op.',
+      fix:'Hand on ipsilateral shoulder to feel shrug. Cue "shoulder blades down and back" before raise.'
+    },
+    'Stand straight - do not lean to the side':{
+      clinical:'Lateral trunk lean (Trendelenburg compensation)',
+      why:'Leaning away to gain apparent ROM — true shoulder flexion less than measured angle.',
+      fix:'Stand patient against wall. Restrict trunk. Focus on isolated glenohumeral movement.'
+    },
+    'Arm dropped before completing hold':{
+      clinical:'Insufficient hold at end range',
+      why:'Elevation reached but not sustained — likely fatigue or pain at end range.',
+      fix:'Reduce reps, increase rest. Check for end-range pain. Cue 2-second count at top.'
+    },
+    'Keep both feet on the ground!':{
+      clinical:'Unilateral weight shift / foot lift during squat',
+      why:'Offloading operated side — squat performed asymmetrically.',
+      fix:'Floor markers for parallel feet. Provide handrail. Reduce depth until symmetry improves.'
+    },
+    'Knee caving in - push knee outward':{
+      clinical:'Dynamic knee valgus collapse',
+      why:'Medial knee deviation — VMO weakness or hip abductor insufficiency post-ACL.',
+      fix:'Resistance band above knees. Cue "knees over little toes". Add hip abductor strengthening.'
+    },
+    'Squat evenly on both legs':{
+      clinical:'Asymmetric squat loading',
+      why:'Large angle difference between operated and non-operated knee — patient guarding.',
+      fix:'Mirror or video feedback. Mark equal depth target. Progress weight-bearing gradually.'
+    },
+    'Rose too early - hold depth':{
+      clinical:'Insufficient squat depth or hold time',
+      why:'Patient rises before reaching target range — avoidance or quad weakness.',
+      fix:'Chair as depth target. Encourage slow controlled descent. Count to 2 before rising.'
+    },
+    'Keep back straight - do not lean forward':{
+      clinical:'Trunk flexion compensation during squat',
+      why:'Excessive forward lean — quad dominance, ankle restriction, or core weakness.',
+      fix:'Elevate heels slightly. Cue "chest up, sit back". Check ankle mobility. Add core work.'
+    }
+  };
+
+  // Findings
+  var findingsHTML;
+  if(!Object.keys(compByType).length){
+    findingsHTML = '<div style="display:flex;align-items:center;gap:10px;padding:8px 0">'+
+      '<div style="width:9px;height:9px;border-radius:50%;background:#22c55e;flex-shrink:0"></div>'+
+      '<span style="font-size:13px;color:#166534;font-weight:600">No compensation faults detected this session — excellent form!</span></div>';
+  } else {
+    findingsHTML = Object.keys(compByType).map(function(reason){
+      var items=compByType[reason];
+      var tip=TIPS[reason]||{clinical:reason,why:'Detected '+items.length+' time(s).',fix:'Review with patient before next session.'};
+      var times=items.map(function(x){return x.time;}).join(', ');
+      var avgA=Math.round(items.reduce(function(s,x){return s+(x.angle||0);},0)/items.length);
+      return '<div style="border:1.5px solid #fee2e2;border-radius:11px;padding:14px;margin-bottom:10px">'+
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px">'+
+          '<div style="flex:1">'+
+            '<div style="font-family:Nunito,sans-serif;font-size:13px;font-weight:800;color:#b91c1c">'+tip.clinical+'</div>'+
+            '<div style="font-size:11px;color:#78716c;margin-top:2px">'+
+              'Detected <strong>'+items.length+'x</strong> &nbsp;|&nbsp; Avg angle: <strong>'+avgA+'&deg;</strong> &nbsp;|&nbsp; At: '+times+
+            '</div>'+
+          '</div>'+
+          '<span style="background:#fee2e2;color:#b91c1c;border-radius:5px;padding:2px 8px;font-weight:700;font-size:11px;margin-left:8px">'+items.length+'x</span>'+
+        '</div>'+
+        '<div style="background:#fff7ed;border-radius:8px;padding:9px 11px;margin-bottom:7px">'+
+          '<div style="font-size:10px;font-weight:700;color:#92400e;margin-bottom:3px;letter-spacing:.04em">WHY IT WAS FLAGGED</div>'+
+          '<div style="font-size:12px;color:#78716c;line-height:1.6">'+tip.why+'</div>'+
+        '</div>'+
+        '<div style="background:#f0fdf4;border-radius:8px;padding:9px 11px">'+
+          '<div style="font-size:10px;font-weight:700;color:#166534;margin-bottom:3px;letter-spacing:.04em">CORRECTION</div>'+
+          '<div style="font-size:12px;color:#166534;line-height:1.6">'+tip.fix+'</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
+
+  // Exercise breakdown
+  var exRows = (lat.exercises||[]).map(function(ex){
+    var tot=ex.correctReps+ex.wrongReps, pct=tot?Math.round(ex.correctReps/tot*100):0;
+    var pains=(ex.painLevels&&ex.painLevels.length)
+      ? ex.painLevels.map(function(pl){return '<span class="ppill '+pl.level+'">'+pl.level+' ('+pl.time+')</span>';}).join(' ')
+      : '<span class="ppill none">No pain</span>';
+    var exC=ex.compensations||[];
+    var faultSummary=exC.length
+      ? '<div style="margin-top:6px;font-size:10px;color:#b91c1c;font-weight:700">FAULTS: </div>'+
+        '<div>'+exC.slice(0,4).map(function(x){
+          return '<div style="font-size:10px;color:#78716c;margin-top:2px">&#8226; '+x.reason+' ('+x.time+', '+x.angle+'&deg;)</div>';
+        }).join('')+(exC.length>4?'<div style="font-size:10px;color:#78716c">+ '+(exC.length-4)+' more</div>':'')+'</div>'
+      : '';
+    return '<div class="exrow">'+
+      '<div class="exrow-h"><div class="exrow-nm">'+ex.name+'</div>'+
+      '<div class="exrow-t">'+(ex.startTime||'')+' - '+(ex.endTime||'--')+'</div></div>'+
+      '<div class="pbar"><div class="pbarf" style="width:'+pct+'%"></div></div>'+
+      '<div class="exrow-d">'+
+        '<span>Accuracy: <strong>'+pct+'%</strong></span>'+
+        '<span>Correct: <strong style="color:#22c55e">'+ex.correctReps+'</strong></span>'+
+        '<span>Wrong: <strong style="color:#ef4444">'+ex.wrongReps+'</strong></span>'+
+        '<span>Avg ROM: <strong>'+ex.avgAngle+'&deg;</strong></span>'+
+      '</div>'+faultSummary+
+      '<div style="margin-top:8px">'+pains+'</div>'+
+    '</div>';
+  }).join('')||'<p style="color:#78716c">No exercise data.</p>';
+
+  // ROM with previous session comparison
+  var romRows = Object.keys(lat.romData||{}).map(function(nm){
+    var angles=lat.romData[nm];
+    var avg=Math.round(angles.reduce(function(s,v){return s+v;},0)/angles.length);
+    var maxV=Math.max.apply(null,angles), minV=Math.min.apply(null,angles);
+    var pct=Math.min(100,Math.round(maxV/180*100));
+    var col=pct>60?'#22c55e':pct>40?'#eab308':'#ef4444';
+    var prevMax='', prevLine='';
+    if(prev&&prev.romData&&prev.romData[nm]){
+      var pa=prev.romData[nm];
+      prevMax=Math.max.apply(null,pa);
+      var diff=maxV-prevMax;
+      var diffStr=diff===0?'= same':(diff>0?'+'+diff+'&deg; improvement':diff+'&deg; regression');
+      var diffCol=diff>=0?'#22c55e':'#ef4444';
+      prevLine='<div style="margin-top:3px;display:flex;gap:10px;font-size:10px">'+
+        '<span style="color:#78716c">Prev max: '+prevMax+'&deg;</span>'+
+        '<span style="color:'+diffCol+';font-weight:700">'+diffStr+'</span>'+
+        '</div>';
+    }
+    return '<div style="margin-bottom:14px">'+
+      '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px">'+
+        '<span style="font-size:12px;font-weight:700;color:#1c1917">'+nm+'</span>'+
+        '<span style="font-size:11px;color:#78716c">Min '+minV+'&deg; &nbsp; Avg '+avg+'&deg; &nbsp; Max <strong style="color:'+col+'">'+maxV+'&deg;</strong></span>'+
+      '</div>'+
+      '<div style="background:#f1f5f9;border-radius:20px;height:8px;overflow:hidden">'+
+        '<div style="height:100%;border-radius:20px;background:'+col+';width:'+pct+'%"></div>'+
+      '</div>'+prevLine+
+    '</div>';
+  }).join('')||'<p style="color:#78716c;font-size:12px">No ROM data recorded.</p>';
+
+  // Pain log
+  var allPain=(lat.exercises||[]).reduce(function(a,e){return a.concat(e.painLevels||[]);}, []);
+  var painHTML=allPain.length
+    ? '<div style="display:flex;gap:6px;flex-wrap:wrap">'+
+      allPain.map(function(p2){return '<span class="ppill '+p2.level+'">'+p2.level+' at '+p2.time+'</span>';}).join('')+
+      '</div>'
+    : '<span style="font-size:12px;color:#22c55e;font-weight:600">No pain reported.</span>';
+
+  // Snapshots
+  function mkSnaps(arr){
+    return arr.map(function(s){
+      var bc=s.correct?'#22c55e':'#ef4444';
+      var reasonLine=(!s.correct&&s.repType&&s.repType!=='wrong')
+        ? '<div style="font-size:9px;color:#fca5a5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+s.repType+'</div>'
+        : '';
+      return '<div style="border-radius:8px;overflow:hidden;border:2px solid '+bc+';position:relative">'+
+        '<img src="'+s.dataUrl+'" style="width:100%;display:block">'+
+        '<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.65);padding:3px 6px">'+
+          '<div style="display:flex;justify-content:space-between;align-items:center">'+
+            '<span style="font-size:9px;color:#fff">'+s.time+'</span>'+
+            '<span style="font-size:8px;font-weight:800;padding:1px 5px;border-radius:3px;background:'+bc+';color:#fff">'+(s.correct?'OK':'WRONG')+'</span>'+
+          '</div>'+reasonLine+
+        '</div></div>';
+    }).join('');
+  }
+  var snapsHTML='';
+  if(wrongSnaps.length) snapsHTML+='<div style="font-size:11px;font-weight:700;color:#ef4444;margin-bottom:6px">Wrong Reps ('+wrongSnaps.length+')</div><div class="snaps" style="margin-bottom:14px">'+mkSnaps(wrongSnaps)+'</div>';
+  if(correctSnaps.length) snapsHTML+='<div style="font-size:11px;font-weight:700;color:#22c55e;margin-bottom:6px">Correct Reps ('+correctSnaps.length+')</div><div class="snaps">'+mkSnaps(correctSnaps)+'</div>';
+  if(!snapsHTML) snapsHTML='<p style="color:#78716c;font-size:12px">No snapshots captured.</p>';
+
+  // Side-by-side comparison with previous session
+  var compHTML='';
+  if(prev){
+    var ptc2=prev.totalCorrect||0,ptw2=prev.totalWrong||0;
+    var pacc2=ptc2+ptw2>0?Math.round(ptc2/(ptc2+ptw2)*100):0;
+    var metrics=[
+      {label:'Correct Reps',cur:tc,prv:ptc2,hi:true},
+      {label:'Wrong Reps',  cur:tw,prv:ptw2,hi:false},
+      {label:'Accuracy',    cur:acc,prv:pacc2,hi:true,suffix:'%'}
+    ];
+    compHTML='<div class="rsec"><h4>Comparison with Previous Session</h4>'+
+      '<div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:1px;background:#e2e8f0;border-radius:10px;overflow:hidden">'+
+      '<div style="background:#f8fafc;padding:9px 11px;font-size:10px;font-weight:700;color:#78716c">METRIC</div>'+
+      '<div style="background:#f0fdf4;padding:9px 11px;font-size:10px;font-weight:700;color:#0d9488;text-align:center">THIS SESSION</div>'+
+      '<div style="background:#f8fafc;padding:9px 11px;font-size:10px;font-weight:700;color:#78716c;text-align:center">PREVIOUS</div>'+
+      metrics.map(function(m){
+        var nc=m.cur,np=m.prv,suf=m.suffix||'';
+        var improved=m.hi?(nc>np):(nc<np), same=nc===np;
+        var arr=same?'':improved?' &uarr;':' &darr;';
+        var ac=same?'#78716c':improved?'#22c55e':'#ef4444';
+        return '<div style="background:#f8fafc;padding:9px 11px;font-size:12px;font-weight:600;color:#1c1917;border-top:1px solid #e2e8f0">'+m.label+'</div>'+
+          '<div style="background:#f0fdf4;padding:9px 11px;text-align:center;border-top:1px solid #e2e8f0">'+
+            '<span style="font-family:Nunito,sans-serif;font-size:17px;font-weight:900;color:#0d9488">'+nc+suf+'</span>'+
+            '<span style="color:'+ac+';font-size:12px;font-weight:700">'+arr+'</span></div>'+
+          '<div style="background:#f8fafc;padding:9px 11px;text-align:center;border-top:1px solid #e2e8f0">'+
+            '<span style="font-family:Nunito,sans-serif;font-size:17px;font-weight:900;color:#78716c">'+np+suf+'</span></div>';
+      }).join('')+
+      '</div></div>';
+  }
+
+  // Auto improvement suggestions
+  var sugg=[];
+  if(acc<60) sugg.push('Accuracy below 60% - reduce reps per set and focus on quality over quantity.');
+  else if(acc<80) sugg.push('Accuracy '+acc+'% - good progress. Reinforce correct technique before increasing load.');
+  else sugg.push('Accuracy '+acc+'% - excellent session. Consider increasing reps or adding light resistance.');
+  if(compByType['Do not shrug - keep shoulder down']) sugg.push('Shoulder shrugging detected '+compByType['Do not shrug - keep shoulder down'].length+'x - add scapular depression exercises before progressing.');
+  if(compByType['Keep arm straight - elbow is bending']) sugg.push('Elbow flexion detected - assess for pain inhibition. Patient may be guarding. Check end-range pain.');
+  if(compByType['Knee caving in - push knee outward']) sugg.push('Knee valgus detected - add VMO strengthening (TKE, single-leg press). Use resistance band during squats.');
+  if(compByType['Squat evenly on both legs']) sugg.push('Asymmetric loading - do not increase squat depth until symmetry improves. Try bathroom scale biofeedback.');
+  if(allPain.some(function(x){return x.level==='moderate';})) sugg.push('Severe pain reported - review exercise intensity before next session. Consider PRICE protocol.');
+  if(tc<5) sugg.push('Very few correct reps - consider in-person guidance session before continuing independent exercise.');
+  Object.keys(lat.romData||{}).forEach(function(nm){
+    var mx=Math.max.apply(null,lat.romData[nm]);
+    if(mx<60) sugg.push(nm+': ROM limited to '+mx+' degrees. Target 90+ degrees. Focus on gentle range progression.');
+    else if(mx>=120) sugg.push(nm+': ROM good ('+mx+' degrees). Maintain and focus on consistent form.');
+  });
+
+  var notesKey='notes_'+key+'_'+lat.startTime;
+  var savedNote=localStorage.getItem(notesKey)||sugg.join('\n');
+
+  var summaryNote=allPain.some(function(x){return x.level==='moderate';})
+    ?'Pain reported - review exercise intensity before next session.'
+    :acc>=80?acc+'% accuracy - excellent. Good form. Consider progression.'
+    :acc>=60?acc+'% accuracy - progressing well. Address '+Object.keys(compByType).length+' compensation pattern(s) below.'
+    :acc+'% accuracy - patient needs additional guidance on form.';
+
+  body.innerHTML=
+    '<div class="rsec" style="border-left:3px solid #0d9488">'+
+      '<h4>'+p.name+' - Session Report</h4>'+
+      '<div style="font-size:11px;color:#78716c;margin-bottom:12px">'+
+        new Date(lat.startTime).toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+
+        ' at '+new Date(lat.startTime).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})+
+        ' &bull; Duration: '+dur+
+      '</div>'+
+      '<div class="kpis">'+
+        '<div class="kpi"><div class="kv">'+tc+delta(tc,prev?ptc:null,true)+'</div><div class="kl">CORRECT REPS</div></div>'+
+        '<div class="kpi"><div class="kv" style="color:#ef4444">'+tw+delta(tw,prev?ptw:null,false)+'</div><div class="kl">WRONG REPS</div></div>'+
+        '<div class="kpi"><div class="kv">'+acc+'%'+delta(acc,prev?pacc:null,true)+'</div><div class="kl">ACCURACY</div></div>'+
+        '<div class="kpi"><div class="kv">'+allComps.length+'</div><div class="kl">COMPENSATIONS</div></div>'+
+      '</div>'+
+      '<div class="ai-note">'+summaryNote+'</div>'+
+    '</div>'+
+    compHTML+
+    '<div class="rsec"><h4>Exercise Findings</h4>'+findingsHTML+'</div>'+
+    '<div class="rsec"><h4>Exercise Breakdown</h4>'+exRows+'</div>'+
+    '<div class="rsec"><h4>Range of Motion</h4>'+romRows+'</div>'+
+    '<div class="rsec"><h4>Pain Log</h4>'+painHTML+'</div>'+
+    '<div class="rsec"><h4>Session Snapshots</h4>'+snapsHTML+'</div>'+
+    '<div class="rsec"><h4>Improvement Points &amp; Therapist Notes</h4>'+
+      '<div style="font-size:11px;font-weight:700;color:#0d9488;margin-bottom:8px">AUTO-GENERATED SUGGESTIONS (edit as needed)</div>'+
+      '<textarea id="therapistNotes" style="width:100%;min-height:110px;padding:11px 13px;border:2px solid #e2e8f0;'+
+        'border-radius:9px;font-family:Nunito Sans,sans-serif;font-size:13px;color:#1c1917;'+
+        'outline:none;resize:vertical;line-height:1.6">'+savedNote+'</textarea>'+
+      '<button data-savekey="'+key+'" data-savetime="'+lat.startTime+'" id="btnSaveNote"'+
+        ' style="margin-top:8px;padding:9px 20px;background:#0d9488;color:#fff;border:none;'+
+        'border-radius:8px;font-family:Nunito,sans-serif;font-weight:700;font-size:13px;cursor:pointer">'+
+        'Save Notes</button>'+
+    '</div>';
+}
+
+
+buildSelect();
+(function wire(){
+  document.getElementById('btnPatient').onclick    = function(){ go('pgSelect'); };
+  document.getElementById('btnPhysio').onclick     = function(){ go('pgPhyLogin'); };
+  document.getElementById('btnBackSelect').onclick = function(){ go('pgHome'); };
+  document.getElementById('btnBackPhyLogin').onclick = function(){ go('pgHome'); };
+  document.getElementById('btnDashOut').onclick    = function(){ go('pgHome'); };
+  document.getElementById('btnStop').onclick       = function(){ stopSession(); };
+  document.getElementById('btnSkip').onclick       = function(){ skipBrief(); };
+  document.getElementById('btnPhyLogin').onclick   = function(){ phyLogin(); };
+  document.getElementById('btnModalCancel').onclick= function(){ closeModal(); };
+  document.getElementById('btnModalSave').onclick  = function(){ saveConfig(); };
+  document.getElementById('pb0').onclick = function(){ setPain('none'); };
+  document.getElementById('pb1').onclick = function(){ setPain('mild'); };
+  document.getElementById('pb2').onclick = function(){ setPain('moderate'); };
+  // Delegated for dynamic dashboard buttons
+  document.getElementById('dashCards').addEventListener('click',function(e){
+    var btn=e.target.closest('[data-action]'); if(!btn) return;
+    var key=btn.getAttribute('data-key');
+    var action=btn.getAttribute('data-action');
+    if(action==='view') viewReport(key);
+    if(action==='edit') openModal(key);
+  });
+  // Delegated for report buttons (Save Notes, Delete Session, Clear All)
+  document.getElementById('reportWrap').addEventListener('click',function(e){
+    var saveBtn = e.target.closest('#btnSaveNote');
+    if(saveBtn){
+      saveNote(saveBtn.getAttribute('data-savekey'), saveBtn.getAttribute('data-savetime'));
+      return;
+    }
+    var delBtn = e.target.closest('[data-delaction]');
+    if(delBtn){
+      var k = delBtn.getAttribute('data-delkey');
+      var act = delBtn.getAttribute('data-delaction');
+      var sel = document.getElementById('sessSelect');
+      var sidx = sel ? parseInt(sel.value) : 0;
+      if(act==='del')    deleteSession(k, sidx);
+      if(act==='delall') clearAllSessions(k);
+    }
+  });
+})();
+</script>
+</body>
+</html>
