@@ -1341,8 +1341,8 @@ function buildDash(){
         '<div class="pcs"><div class="pn">'+ss.length+'</div><div class="pl">SESSIONS</div></div>'+
       '</div>'+
       '<div class="pcard-btns">'+
-        '<button class="pcard-btn view" data-key="'+key+'" data-action="view">View Report</button>'+
-        '<button class="pcard-btn edit" data-key="'+key+'" data-action="edit">Edit Setup</button>'+
+        '<button class="pcard-btn view" onclick="viewReport(\''+key+'\')">View Report</button>'+
+        '<button class="pcard-btn edit" onclick="openModal(\''+key+'\')">Edit Setup</button>'+
       '</div>';
     g.appendChild(el);
   });
@@ -1410,12 +1410,12 @@ function viewReport(key){
         d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})+'</option>';
     }).join('')+
     '</select>'+
-    '<button data-delkey="'+key+'" data-delaction="del"'+
+    '<button onclick="deleteSession(\''+key+'\',parseInt(document.getElementById(\'sessSelect\')?document.getElementById(\'sessSelect\').value:0))"'+
       ' style="padding:6px 12px;background:#fff;border:1.5px solid #fca5a5;color:#ef4444;'+
       'border-radius:8px;font-family:Nunito,sans-serif;font-weight:700;font-size:11px;cursor:pointer">'+
       'Delete Session</button>'+
     (ss.length>1
-      ? '<button data-delkey="'+key+'" data-delaction="delall"'+
+      ? '<button onclick="clearAllSessions(\''+key+'\')"'+
           ' style="padding:6px 12px;background:#fff;border:1.5px solid #e2e8f0;color:#78716c;'+
           'border-radius:8px;font-family:Nunito,sans-serif;font-weight:700;font-size:11px;cursor:pointer">'+
           'Clear All</button>'
@@ -1685,6 +1685,8 @@ function renderReport(key, sidx){
 
   var notesKey='notes_'+key+'_'+lat.startTime;
   var savedNote=localStorage.getItem(notesKey)||sugg.join('\n');
+  // Store for save button
+  window._noteKey=key; window._noteTime=lat.startTime;
 
   var summaryNote=allPain.some(function(x){return x.level==='moderate';})
     ?'Pain reported - review exercise intensity before next session.'
@@ -1719,7 +1721,7 @@ function renderReport(key, sidx){
       '<textarea id="therapistNotes" style="width:100%;min-height:110px;padding:11px 13px;border:2px solid #e2e8f0;'+
         'border-radius:9px;font-family:Nunito Sans,sans-serif;font-size:13px;color:#1c1917;'+
         'outline:none;resize:vertical;line-height:1.6">'+savedNote+'</textarea>'+
-      '<button data-savekey="'+key+'" data-savetime="'+lat.startTime+'" id="btnSaveNote"'+
+      '<button onclick="saveNote(window._noteKey,window._noteTime)"'+
         ' style="margin-top:8px;padding:9px 20px;background:#0d9488;color:#fff;border:none;'+
         'border-radius:8px;font-family:Nunito,sans-serif;font-weight:700;font-size:13px;cursor:pointer">'+
         'Save Notes</button>'+
